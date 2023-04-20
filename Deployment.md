@@ -1,8 +1,9 @@
 ### Structure
 ![structure.png](./structure.png)
 ## Frontend
-- We create s Docker image for our Next.JS app
-- Using Aws Fargate ![fargate.png](./front-images/fargate.png)
+- We create a Docker image for our Next.JS app
+- Using Aws Fargate 
+![fargate.png](./front-images/fargate.png)
 #### Setting up AWS Fargate
 - We create a container repository in AWS ECR (Elastic Container Repository)
 - Creating a private repository for all the docker images![repo.png](./front-images/repo.png)
