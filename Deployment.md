@@ -1,6 +1,29 @@
-### Structure
+## Current Setup
+--- 
+## Setup EC2 Server
+- Setup an EC2 server with the required vCPU and RAM on AWS (2CPU + 4G RAM current)
+- Attach a elastic IP so that on server restart IP address does not change
+
+## Set up continuous delivery pipelines using Github Actions
+- In our GitHub repository, we click on the **Action** tab and configure a new workflow. This has a created [main.yml](./main.yaml) file in ```.github/workflows```. Explainations are included in the yaml file
+
+- Each time we push on main in our project, this workflow runs and deploys our application.
+
+## Make the application publicly accessible
+
+- Since we have not configured a domain, we use [ngrok](https://dashboard.ngrok.com/get-started/your-authtoken), make an account and get the auth token
+- Configure the [ngrok.yml](./ngrok.yml)
+- Start with ```ngrok start --all -config=ngrok.yml``` on the deployment folder
+
+
+<br>
+<br>
+
+--- 
+##  Future Plan
 ![structure.png](./structure.png)
-## Frontend
+
+## [Frontend](./Frontend.md)
 - We create a Docker image for our Next.JS app
 - Using Aws Fargate 
 ![fargate.png](./front-images/fargate.png)
@@ -13,9 +36,7 @@
 - On the **Container and Task** page, we  **Configure** a **Custom** container definition and add previous image URL![clusters.png](./front-images/clusters.png)
 - In **Service** page we add an application load balancer(we can add a custom domain url to the load balancer later)![load-balancer.png](./front-images/load-balancer.png)
 
-#### set up continuous delivery pipelines in our code repository on GitHub, using **Github Actions**
-- In our GitHub repository, we click on the **Action** tab and configure a new workflow using **Deploy to Amazon ECS**. This will create an aws.yml file with explanations about how to use it.
-- Each time we push on main in our project, this workflow runs and deploys our application with AWS Fargate.
+
 
 
 

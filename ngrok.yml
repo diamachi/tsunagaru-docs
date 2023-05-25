@@ -1,0 +1,11 @@
+authtoken:            # your auth token here
+
+tunnels:
+  frontend:           # name for frontend app
+    addr: 3000        # the port on which frontend runs
+    proto: http       # the protocol on which frontend runs
+    bind_tls: true    # only open https
+  backend:            # name for backend app
+    addr: 8000        # the port on which backend runs
+    proto: http       # the protocol on which backend runs  
+    bind_tls: true    # only open https

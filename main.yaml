@@ -1,0 +1,40 @@
+name: deploy-test       # name of the workflow
+
+on:
+  push:                 # event that triggers the workflow
+    branches: 
+      - dev             # branch to run workflow on 
+  workflow_dispatch:    # allows you to run workflow manually from Actions tab
+ 
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest            # type of machine to run the workflow on
+    steps:
+      - name: SSH into EC2 instance and start app   # name of the step
+        uses: appleboy/ssh-action@v0.1.10           # name of the action to use
+        with:
+          host: ${{ secrets.HOST }}                 # environment variable with the host IP address
+          username: ${{ secrets.USERNAME }}         # environment variable with the username of the ubuntu user EC2
+          key: ${{ secrets.KEY }}                   # environment variable with the private key to connect to EC2
+          port: ${{ secrets.PORT }}                 # environment variable with the port to connect to EC2
+          script: |
+            # Stop previous screen session if it was running frontend or backend     
+            screen -S frontend -X quit || true            
+
+            # Clone latest code from GitHub repository either frontend or backend
+            cd /home/ubuntu/deployment/frontend
+            git pull
+          
+            
+            # Start app in a new screen session called frontend and run the app for frontend
+            screen -dmS frontend
+            screen -S frontend -X stuff 'npm i\n'
+            screen -S frontend -X stuff 'sleep 10\n'
+            screen -S frontend -X stuff 'npm run dev\n' 
+
+            # Start app in a new screen session called backend and run the app for backend
+            screen -dmS backend
+            screen -S backend -X stuff 'source venv/bin/activate \n'
+            screen -S backend -X stuff 'pip install -r requirements.txt\n'
+            screen -S backend -X stuff 'sleep 15\n'
+            screen -S backend -X stuff 'uvicorn main:app --reload\n' 
