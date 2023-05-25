@@ -5,7 +5,9 @@
 - Attach a elastic IP so that on server restart IP address does not change
 
 ## Set up continuous delivery pipelines using Github Actions
-- In our GitHub repository, we click on the **Action** tab and configure a new workflow. This has a created [main.yml](./main.yaml) file in ```.github/workflows```. Explainations are included in the yaml file
+-   In our GitHub repository, we click on the **Action** tab and configure a new workflow. This has a created [main.yml](./main.yaml) file in ```.github/workflows```. Explainations are included in the yaml file
+-  [Secrets](./secrets.png) are defined in the Github repo for the app 
+-  Different workflow files for both frontend and backend
 
 - Each time we push on main in our project, this workflow runs and deploys our application.
 
